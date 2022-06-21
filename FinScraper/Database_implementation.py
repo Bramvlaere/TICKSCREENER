@@ -3,7 +3,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.sql import func
+import sqlalchemy as db
 import datetime
+import os
 
 
 
@@ -50,6 +52,8 @@ class trendingtickers(Base):#if spare time left can add a emp id and link this w
     Link=Column(String(250), nullable=False)
 
 
-
-engine = create_engine('sqlite://///Users/vanlaere/Desktop/FinScraper/FinScraper/Fin_logger_Database.sqlite3',echo=True) 
+filename = os.path.abspath(__file__)
+dbdir = filename.rstrip('Database_implementation.py')
+dbpath = os.path.join(dbdir, "findatabase.db")
+engine = create_engine(f'sqlite://///{dbpath}.sqlite3',echo=True) 
 Base.metadata.create_all(engine)

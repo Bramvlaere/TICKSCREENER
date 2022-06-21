@@ -1,16 +1,17 @@
 import sys,os
 from bs4 import BeautifulSoup
-import requests
 from flask import Flask
-import pandas as pd
-import numpy as np
-import FinScraper.classmodule as classmodule
-import click
-from FinScraper.webapp import app
+import classmodule as classmodule
+from webapp import app
 import argparse
-my_parser = argparse.ArgumentParser()
-my_parser.version = '1.0'
-my_parser.add_argument('-a', action='classmodule.Menu().run()')
+
+
+#before launching the server use the argeparse below to scrape data
+#so comment out the app run and undo the comments from argparse
+
+#my_parser = argparse.ArgumentParser()
+#my_parser.version = '1.0'
+#my_parser.add_argument('-a', action=classmodule.Menu().run())
 
 
 ##def r(run):
@@ -18,12 +19,5 @@ my_parser.add_argument('-a', action='classmodule.Menu().run()')
 
 
 if __name__ == '__main__':
+    #classmodule.Menu().run()
     app.run(debug=True)
-
-
-
-
-
-
-
-

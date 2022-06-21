@@ -8,10 +8,12 @@ import classmodule
 from bs4 import BeautifulSoup
 import Database_implementation as decl
 import time
+import os
 
-
-
-app = Flask(__name__,template_folder='/Users/vanlaere/Desktop/FinScraper/FinScraper/templates')
+APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE_PATH = os.path.join(APP_PATH, 'FinScraper/templates')
+print(TEMPLATE_PATH)
+app = Flask(__name__,template_folder=TEMPLATE_PATH)
 app.register_blueprint(Tickerendpoint, url_prefix='')
 
 @app.route('/background_process')

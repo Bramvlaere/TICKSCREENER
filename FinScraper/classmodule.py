@@ -20,7 +20,8 @@ import zipfile
 class db_holder:
     def __init__(self):
         pass
-        
+    
+    
     def create_session(self):
         ''''
         shortcut to create session to the database
@@ -28,13 +29,19 @@ class db_holder:
         :RETURN session object
 
         ''' 
-        engine = db.create_engine('sqlite://///Users/vanlaere/Desktop/FinScraper/FinScraper/Fin_logger_Database.sqlite3',echo=True) 
+        filename = os.path.abspath(__file__)
+        dbdir = filename.rstrip('classmodule.py')
+        dbpath = os.path.join(dbdir, "findatabase.db")
+        engine = db.create_engine(f'sqlite://///{dbpath}.sqlite3',echo=True) 
         decl.Base.metadata.bind = engine
         DBSession = sessionmaker(bind=engine)
         session = DBSession()
         return session
     def query_insert(self,table_name,jsoninsert):
-        engine = db.create_engine('sqlite://///Users/vanlaere/Desktop/FinScraper/FinScraper/Fin_logger_Database.sqlite3',echo=True) 
+        filename = os.path.abspath(__file__)
+        dbdir = filename.rstrip('classmodule.py')
+        dbpath = os.path.join(dbdir, "findatabase.db")
+        engine = db.create_engine(f'sqlite://///{dbpath}.sqlite3',echo=True) 
         connection = engine.connect()
         metadata = db.MetaData()
         table = db.Table(table_name, metadata, autoload=True, autoload_with=engine)
@@ -160,7 +167,7 @@ class Ticker_logger:
 class Menu:
     def __init__(self):
         self.url_finder=['https://finance.yahoo.com/trending-tickers','https://finance.yahoo.com/gainers','https://finance.yahoo.com/most-active']
-        self.choices = {"1" : self.add_log,'2':self.Show_Full_Log,"4" : self.quit}
+        self.choices = {"1" : self.add_log,'2':self.Show_Full_Log,"3" : self.quit}
         #not working print('\n==========================================\n','YOUR WEBSERVER WILL START AUTOMATICALLY','\n==========================================\n')
     def auto_logger(self):
         for url in self.url_finder:
@@ -220,9 +227,7 @@ class Menu:
 
                 2. Show Full Finance Log
 
-                3. Launch web instance (flask server)
-
-                4. Quit program
+                3. Quit program
 
                 """)
 
